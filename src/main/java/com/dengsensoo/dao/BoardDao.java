@@ -101,16 +101,18 @@ public class BoardDao {
 		}
 	}
 	
-	public BoardDto contentView(String bnum) { // 게시판 글 목록에서 유저가 클릭한 글 번호의 글 Dto 반환해주는 메소드
+	public BoardDto contentView(String boardnum) { // 게시판 글 목록에서 유저가 클릭한 글 번호의 글 Dto 반환해주는 메소드
 		String sql = "SELECT * FROM board where bnum = ?";
+		BoardDto bDto = null;
 		
 		try {
 			Class.forName(driverName); //MySQL 드라이버 클래스 불러오기			
 			conn = DriverManager.getConnection(url, username, password);
 			
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, boardnum);
 			
-			rs = pstmt.executeQuery(); // 모든 글 리스트(레코드) 반환
+			rs= pstmt.executeQuery(); // 해당 번호글의 레코드 1개 또는 0개가 반환
 			
 			while(rs.next()) { // while문이 한 바퀴 돌 때마다 레코드 한 줄을 반환
 				int bnum = rs.getInt("bnum");
@@ -120,13 +122,12 @@ public class BoardDao {
 				int bhit = rs.getInt("bhit");
 				String bdate = rs.getString("bdate");
 				
-				BoardDto bDto = new BoardDto(bnum, btitle, bcontent, memberid, bhit, bdate); // Dto에서 생성자를 만들었기 때문에 바로 매개변수를 넣으면 초기화가 된다.
-				bDtos.add(bDto);
+				bDto = new BoardDto(bnum, btitle, bcontent, memberid, bhit, bdate);
 				
 			}
 			
 		} catch (Exception e) {
-			System.out.println("DB 에러 발생! 게시판 불러오기 실패!");
+			System.out.println("DB 에러 발생! 게시판 글 가져오기 실패!");
 			e.printStackTrace(); //에러 내용 출력
 		} finally { //에러의 발생여부와 상관 없이 Connection 닫기 실행 
 			try {
@@ -143,7 +144,7 @@ public class BoardDao {
 				e.printStackTrace();
 			}
 		}
-		return bDtos; // 글(bDto)이 여러개가 담긴 list인 bDtos를 반환
+		return bDto;
 	}
 	
 }

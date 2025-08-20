@@ -57,10 +57,14 @@ public class BoardController extends HttpServlet {
 		} else if(comm.equals("/content.do")) { // 글 목록에서 선택된 글 내용이 보여지는 페이지로 이동
 			String bnum = request.getParameter("bnum"); // 유저가 선택한 글의 번호
 			
-			BoardDto boardDto = boardDto.contentView(bnum);
+			BoardDto boardDto = boardDao.contentView(bnum); //boardDto 반환(유저가 선택한 글번호에 해당하는 boardDto)
+			if(boardDto == null) { // 유저가 선택한 글이 삭제된 경우
+				request.setAttribute("deleteMsg", "해당 글이 존재하지 않습니다.");
+			} else {
+				request.setAttribute(bnum, boardDto);
+			}
 			
-			request.
-			
+			request.setAttribute(viewPage, boardDto);
 			viewPage = "contentView.jsp";
 		} else if(comm.equals("/writeOk.do")) {
 			request.setCharacterEncoding("utf-8");

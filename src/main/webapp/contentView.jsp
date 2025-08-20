@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+    if(request.getAttribute("msg") != null) {
+    	String msginfo = request.getAttribute("msg").toString();
+    	out.println("<script>alert('" + msginfo + "');window.location.href='list.do';</script>");
+    }
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -10,17 +16,17 @@
 </head>
 <body>
   <div class="board-container">
-    <h2>${bDto.btitle}</h2>
+    <h2>${boardDto.btitle}</h2>
     
     <div class="post-meta">
-      <span>작성자: ${bDto.memberid}</span> |
-      <span>작성일: ${bDto.bdate}</span> |
-      <span>조회수: ${bDto.bhit}</span>
+      <span>작성자: ${boardDto.memberid}</span> |
+      <span>작성일: ${boardDto.bdate}</span> |
+      <span>조회수: ${boardDto.bhit}</span>
     </div>
     
     <div class="post-content">
       <p>
-        ${bDto.bcontent}
+        ${boardDto.bcontent}
       </p>
     </div>
     
