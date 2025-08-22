@@ -1,23 +1,27 @@
 package com.dengsensoo.dto;
 
-public class BoardDto {
+public class BoardMemberDto {
+	
 	private int bnum;
 	private String btitle;
 	private String bcontent;
 	private String memberid;
+	private String memberemail;
 	private int bhit;
 	private String bdate;
 	
-	public BoardDto() {
+	public BoardMemberDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public BoardDto(int bnum, String btitle, String bcontent, String memberid, int bhit, String bdate) {
+	public BoardMemberDto(int bnum, String btitle, String bcontent, String memberid, String memberemail, int bhit,
+			String bdate) {
 		super();
 		this.bnum = bnum;
 		this.btitle = btitle;
 		this.bcontent = bcontent;
 		this.memberid = memberid;
+		this.memberemail = memberemail;
 		this.bhit = bhit;
 		this.bdate = bdate;
 	}
@@ -46,6 +50,12 @@ public class BoardDto {
 	public void setMemberid(String memberid) {
 		this.memberid = memberid;
 	}
+	public String getMemberemail() {
+		return memberemail;
+	}
+	public void setMemberemail(String memberemail) {
+		this.memberemail = memberemail;
+	}
 	public int getBhit() {
 		return bhit;
 	}
@@ -58,6 +68,4 @@ public class BoardDto {
 	public void setBdate(String bdate) {
 		this.bdate = bdate;
 	}
-	
-	
 }
